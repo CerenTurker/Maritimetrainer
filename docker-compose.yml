@@ -1,0 +1,22 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "app"
+      MYSQL_USER: "app"
+      MYSQL_PASSWORD: "app"
+      MYSQL_ROOT_PASSWORD: "test"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1 # equivalent to True
